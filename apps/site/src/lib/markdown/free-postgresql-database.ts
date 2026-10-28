@@ -1,7 +1,6 @@
 import { COMPARE_PRISMA_LINKS } from "@/components/sections/compare-links-data";
 import { TESTIMONIALS } from "@/components/sections/testimonials-data";
 import {
-  CONNECTION_CONFIRM,
   FREE_POSTGRES_HERO_SECONDARY_CTA,
   FREE_POSTGRES_CLOSER_BENEFITS,
   FREE_POSTGRES_CLOSER_BODY,
@@ -130,7 +129,6 @@ export function renderFreePostgresqlDatabaseMarkdown(): string {
     ].join("\n"),
     FREE_POSTGRES_INCLUDED_NOTES.map((note) => `${note.n}. ${note.text}`).join("\n"),
     bulletList(FREE_POSTGRES_FEATURE_ITEMS.map((item) => `**${item.name}:** ${item.description}`)),
-    paragraphs(`TO CONFIRM WITH ENGINEERING: ${CONNECTION_CONFIRM}`),
 
     heading(2, FREE_POSTGRES_PROBLEM_HEADLINE),
     paragraphs(FREE_POSTGRES_LIMIT.intro),

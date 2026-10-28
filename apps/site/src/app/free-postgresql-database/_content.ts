@@ -7,8 +7,9 @@
 //     accordion already does that with Radix's `forceMount`).
 //   - No em dashes or en dashes.
 //   - Do not invent what happens at 2 GB of storage, or whether an upgrade
-//     keeps the same connection string. Those two points stay marked
-//     "TO CONFIRM WITH ENGINEERING" until product engineering answers them.
+//     keeps the same connection string. The storage question stays marked
+//     "TO CONFIRM WITH ENGINEERING" in the limit section. The connection-string
+//     question is left off the page until engineering answers it.
 //
 // Numbers are taken from apps/site/src/lib/pricing-data.ts and
 // components/sections/pricing-spec-table.tsx. When the brief and those files
@@ -397,13 +398,13 @@ export const FREE_POSTGRES_INCLUDED_NOTES = [
 export const FREE_POSTGRES_FEATURE_ITEMS = [
   {
     name: "What developers build on it",
-    description:
-      "The Free plan is for work that needs a real hosted Postgres: a side project, an embedding demo, a throwaway database for an agent, or a separate database per test. A real Postgres for the weekend idea, not SQLite, with standard SQL. Store embeddings and run similarity search without a separate vector database. Claude Code, Cursor and Codex can create databases through MCP or `npx create-db --json`. Give each experiment its own database.",
+    description: "For evaluation only. Not for production workloads.",
     illustration: "runApps",
   },
   {
     name: "When to upgrade",
-    description: `Stay on Free while that allowance is enough. Move up when you need backups, a spend limit, or more room. The full grid is on [pricing](/pricing); [everything Prisma Postgres includes](/postgres) is on the product page. Starter, $10 a month: ${UPGRADE_POINTS[0].body} Pro, $49 a month: ${UPGRADE_POINTS[1].body} Business, $129 a month: ${UPGRADE_POINTS[2].body} See [HIPAA on the Business plan](/postgres/hipaa).`,
+    description:
+      "When you need backups or a spend limit. Paid plans take a daily snapshot on days the database is used. See [pricing](/pricing).",
     illustration: "compliance",
   },
 ] as const;

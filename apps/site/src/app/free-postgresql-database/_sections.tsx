@@ -21,7 +21,6 @@ import { renderFaqAnswer } from "@/lib/faq-answer";
 import { cn } from "@/lib/utils";
 import { PRODUCT_TESTIMONIALS_HEADING } from "@/lib/markdown/product";
 import {
-  CONNECTION_CONFIRM,
   FREE_POSTGRES_HERO_SECONDARY_CTA,
   FREE_POSTGRES_CLOSER_BENEFITS,
   FREE_POSTGRES_CLOSER_BODY,
@@ -284,7 +283,6 @@ export function FreePostgresPage() {
         }}
         lead={<FreePostgresIncluded />}
         leadLayout="wide"
-        footer={<EngineeringConfirm>{CONNECTION_CONFIRM}</EngineeringConfirm>}
       />
       <FreeLimit />
       <ProductPlatform platform={{ body: FREE_POSTGRES_PLATFORM_BODY }} />

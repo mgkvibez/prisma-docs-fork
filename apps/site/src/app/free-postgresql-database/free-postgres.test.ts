@@ -317,6 +317,16 @@ test("the hero window is a plain terminal plus light agent sessions", () => {
   assert.ok(markdown.includes(`[one of six](${DOCS_REGIONS})`));
   assert.ok(!markdown.includes("Last updated: 21 October 2026"));
   assert.ok(!markdown.includes("workspace you can keep"));
+  assert.ok(markdown.includes("**What developers build on it:** For evaluation only. Not for production workloads."));
+  assert.ok(
+    markdown.includes(
+      "**When to upgrade:** When you need backups or a spend limit. Paid plans take a daily snapshot on days the database is used. See [pricing](/pricing).",
+    ),
+  );
+  assert.ok(!markdown.includes("Whether upgrading a workspace keeps the same connection string"));
+  assert.ok(!markdown.includes("embedding demo"));
+  assert.ok(!markdown.includes("Starter, $10 a month"));
+  assert.ok(markdown.includes("TO CONFIRM WITH ENGINEERING: What happens when a database reaches 2 GB"));
 
   const sections = readFileSync(new URL("./_sections.tsx", import.meta.url), "utf8");
   assert.match(sections, /one\s+query each/);
