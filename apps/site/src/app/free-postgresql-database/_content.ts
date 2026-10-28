@@ -362,17 +362,31 @@ export type FreePostgresIncludedRow = {
 export const FREE_POSTGRES_INCLUDED_ROWS: readonly FreePostgresIncludedRow[] = [
   {
     label: "Connections",
-    value: "10 pooled for the app, 10 direct for migrations, Studio, and pg_dump. Per database.",
+    value:
+      "10 pooled for the app, and 10 direct for migrations, Studio, and pg_dump, per database.",
   },
-  { label: "Data transfer", value: "Unlimited for the database." },
-  { label: "Postgres", value: "PostgreSQL 17, SSL, and connection pooling." },
+  { label: "Data transfer", value: "No meter on what the database sends or receives." },
+  { label: "Postgres", value: "Version 17, encrypted in transit, with a pooler built in." },
   {
     label: "Extensions",
     value: `[pgvector](${DOCS_EXTENSIONS}) for similarity search, plus pg_search, pg_trgm, and pgcrypto.`,
   },
-  { label: "Regions", value: `[Six regions](${DOCS_REGIONS}). Put the database near the app.` },
+  {
+    label: "Regions",
+    value: `Put the database near the app, in [one of six](${DOCS_REGIONS}).`,
+  },
   { label: "Query Insights", value: "Shows which queries are slow and why." },
   { label: "Prisma Studio", value: "A data browser for viewing and editing rows." },
+  {
+    label: "Prisma Compute",
+    value:
+      "Host a Node.js, Bun, or Next.js app next to this database: 1 million requests, 360 GB-hours of memory, and 4 active vCPU-hours a month.",
+  },
+  { label: "App outbound", value: "10 GB a month. Separate from the database." },
+  {
+    label: "Prisma ORM",
+    value: "Any Postgres client works. The typed client, on this same database.",
+  },
 ];
 
 export const FREE_POSTGRES_INCLUDED_NOTES = [

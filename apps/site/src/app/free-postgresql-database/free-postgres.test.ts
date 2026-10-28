@@ -75,6 +75,9 @@ test("title, meta and H1 match the brief", () => {
       "Regions",
       "Query Insights",
       "Prisma Studio",
+      "Prisma Compute",
+      "App outbound",
+      "Prisma ORM",
     ],
   );
   assert.deepEqual(
@@ -96,6 +99,10 @@ test("title, meta and H1 match the brief", () => {
   assert.match(includedCopy, /pooled for the app/);
   assert.match(includedCopy, /pg_dump/);
   assert.match(includedCopy, /similarity search/);
+  assert.match(includedCopy, /1 million requests/);
+  assert.match(includedCopy, /4 active vCPU-hours/);
+  assert.match(includedCopy, /10 GB a month/);
+  assert.match(includedCopy, /typed client/);
   assert.ok(!includedCopy.includes("PostGIS"));
   assert.match(includedCopy, /Daily backups start on Starter/);
   assert.match(includedCopy, /Operations reset/);
