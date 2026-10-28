@@ -347,22 +347,25 @@ test("the hero window is a plain terminal plus light agent sessions", () => {
   const buildCard = markdown.indexOf("**What developers build on it:**");
   assert.ok(
     backupNote < limitHeading && limitHeading < blogCase && blogCase < buildCard,
-    "the three cards sit in the limit section, before the two feature cards",
+    "the three cards follow the limit, before the two feature cards",
   );
   assert.ok(!markdown.includes("Roughly, in a day"));
+  assert.ok(!markdown.includes("The catch is stated here"));
   assert.ok(!markdown.includes("Queries stop at 200,000"));
   assert.equal(markdown.split("Queries stop").length - 1, 1);
-  assert.ok(
-    markdown.includes("Queries stop until the 1st of the next month, or until you upgrade."),
-  );
+  assert.ok(markdown.includes("### What counts"));
   assert.ok(markdown.includes("One query is one operation: a simple read, a write, or a join."));
   assert.ok(markdown.includes("200,000 operations a month"));
   assert.ok(markdown.includes("about 6,600 queries a day"));
+  assert.ok(markdown.includes("Idle time is not billed."));
   assert.ok(!markdown.includes("divided by 30"));
-  assert.ok(
-    markdown.includes("Idle is free. A quiet database costs nothing, and the next query wakes it."),
-  );
-  assert.ok(markdown.includes("restore access for 24 hours"));
+  assert.ok(markdown.includes("### Idle databases scale to zero"));
+  assert.ok(markdown.includes("The next query wakes them. You do not wake one by hand."));
+  assert.ok(markdown.includes("### Queries stop at the monthly limit"));
+  assert.ok(markdown.includes("Until the 1st of the next month, or until you upgrade."));
+  assert.ok(markdown.includes("### A one-time 24 hour restore"));
+  assert.ok(markdown.includes("In the Console, it lets you export first."));
+  assert.ok(markdown.includes("On paid plans this never happens"));
   assert.ok(markdown.includes("### A personal blog"));
   assert.ok(markdown.includes("A visit loads the list of posts, then the post."));
   assert.ok(markdown.includes("about 40 a day. Stays on Free."));

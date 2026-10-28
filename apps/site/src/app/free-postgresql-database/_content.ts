@@ -300,21 +300,26 @@ export const FREE_POSTGRES_COPILOT = {
 
 export const FREE_POSTGRES_PROBLEM_HEADLINE = "How the free limit works";
 
-// One panel. Each fact is written once: what a query counts as, the month and
-// the day, idle, the stop, and the one-time restore. "about 6,600" is the
-// page's round number for the daily pace. The docs FAQ is the source for the
-// stop, the 1st, the upgrade, and the restore. Nothing here says what
-// happens at 2 GB of storage.
+// Two columns, then a footer. Each fact is written once: what a query counts
+// as, the month and the day, idle billing, scale to zero, the stop, the
+// one-time restore, and what paid plans do instead. "about 6,600" is the
+// page's round number for the daily pace. Nothing here says what happens at
+// 2 GB of storage.
 export const FREE_POSTGRES_LIMIT = {
-  counts: "One query is one operation: a simple read, a write, or a join.",
+  countsTitle: "What counts",
+  countsLead: "One query is one operation: a simple read, a write, or a join.",
   monthFigure: "200,000",
   monthLabel: "operations a month",
   dayFigure: "about 6,600",
   dayLabel: "queries a day",
-  idle: "Idle is free. A quiet database costs nothing, and the next query wakes it.",
-  stop: "Queries stop until the 1st of the next month, or until you upgrade.",
-  restore: "Once, you can restore access for 24 hours in the Console and export first.",
-  paid: `On a paid plan, extra operations are billed and you set a spend limit. Read the [docs FAQ on the free limit](${DOCS_FREE_LIMIT}).`,
+  idleNotBilled: "Idle time is not billed.",
+  idleTitle: "Idle databases scale to zero",
+  idleBody: "The next query wakes them. You do not wake one by hand.",
+  capTitle: "Queries stop at the monthly limit",
+  capBody: "Until the 1st of the next month, or until you upgrade.",
+  restoreTitle: "A one-time 24 hour restore",
+  restoreBody: "In the Console, it lets you export first.",
+  paid: `On paid plans this never happens: extra operations are billed, with a spend limit you set. Read the [docs FAQ on the free limit](${DOCS_FREE_LIMIT}).`,
 } as const;
 
 // Three setups inside the limit panel. Each count is approximate: a visit

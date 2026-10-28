@@ -138,72 +138,125 @@ function LimitFigure({ figure, label }: { figure: string; label: string }) {
   );
 }
 
-// One grainy panel. The heading does not repeat the stop, and the three
-// rough days sit in the panel rather than under a second heading.
-// Free-page only. ProductProblem stays the centered narrative /postgres uses.
+// Two columns on the grain: what a query counts as, then what idle and the
+// cap do. The business cards are the next section. Free-page only.
 function FreeLimit() {
   return (
-    <section id="limits" className="scroll-mt-28 bg-white px-4 py-24 sm:px-8 sm:py-32">
+    <section
+      id="limits"
+      className="scroll-mt-28 bg-white px-4 pt-24 pb-8 sm:px-8 sm:pt-32 sm:pb-10"
+    >
       <div className="mx-auto max-w-site">
         <h2 className="max-w-[14ch] text-balance text-[clamp(1.75rem,2.75vw,2.375rem)] leading-[1.1]">
           {FREE_POSTGRES_PROBLEM_HEADLINE}
         </h2>
 
-        <div className="relative mt-10 overflow-hidden rounded-[1.5rem] border border-black/[0.06] bg-white">
+        <div className="relative mt-8 overflow-hidden rounded-[1.5rem] border border-black/[0.06] bg-white">
           <Texture opacity={0.05} blend="multiply" />
-          <div className="relative px-6 py-7 sm:px-10 sm:py-8">
-            <p className="max-w-[46ch] text-pretty leading-snug text-foreground">
-              {FREE_POSTGRES_LIMIT.counts}
-            </p>
-            <div className="mt-6 grid grid-cols-2 gap-6 sm:max-w-xl">
-              <LimitFigure
-                figure={FREE_POSTGRES_LIMIT.monthFigure}
-                label={FREE_POSTGRES_LIMIT.monthLabel}
-              />
-              <LimitFigure
-                figure={FREE_POSTGRES_LIMIT.dayFigure}
-                label={FREE_POSTGRES_LIMIT.dayLabel}
-              />
+          <div className="relative grid lg:grid-cols-[minmax(0,0.86fr)_minmax(0,1.14fr)]">
+            <div className="border-b border-black/[0.06] p-6 sm:p-8 lg:border-r lg:border-b-0">
+              <h3 className="text-xl">{FREE_POSTGRES_LIMIT.countsTitle}</h3>
+              <p className="mt-2 max-w-[36ch] text-pretty text-lg leading-snug text-foreground">
+                {FREE_POSTGRES_LIMIT.countsLead}
+              </p>
+              <div className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2">
+                <LimitFigure
+                  figure={FREE_POSTGRES_LIMIT.monthFigure}
+                  label={FREE_POSTGRES_LIMIT.monthLabel}
+                />
+                <LimitFigure
+                  figure={FREE_POSTGRES_LIMIT.dayFigure}
+                  label={FREE_POSTGRES_LIMIT.dayLabel}
+                />
+              </div>
+              <p className="mt-6 text-sm font-medium text-foreground">
+                {FREE_POSTGRES_LIMIT.idleNotBilled}
+              </p>
             </div>
-            <p className="mt-6 max-w-[54ch] text-pretty leading-snug text-foreground">
-              {FREE_POSTGRES_LIMIT.idle}
-            </p>
-            <p className="mt-2 max-w-[54ch] text-pretty leading-snug text-foreground">
-              {FREE_POSTGRES_LIMIT.stop}
-            </p>
-            <p className="mt-4 max-w-[62ch] text-pretty text-sm leading-relaxed text-muted-foreground">
-              {FREE_POSTGRES_LIMIT.restore} {renderFaqAnswer(FREE_POSTGRES_LIMIT.paid)}
-            </p>
 
-            <ul className="mt-6 grid grid-cols-1 gap-3 border-t border-black/[0.06] pt-5 lg:grid-cols-3">
-              {FREE_POSTGRES_CASES.map((item) => (
-                <li
-                  key={item.name}
-                  className="overflow-hidden rounded-xl border border-black/[0.06] bg-white"
-                >
-                  <Image
-                    src={item.image}
-                    alt={item.imageAlt}
-                    width={800}
-                    height={600}
-                    className="h-24 w-full object-cover grayscale"
+            <div className="flex flex-col">
+              <div className="p-6 sm:p-8">
+                <div className="flex items-start gap-3">
+                  <span
+                    aria-hidden
+                    className="mt-2 size-2 shrink-0 rounded-full bg-prism-cyan-500"
                   />
-                  <div className="px-4 py-3">
-                    <h3 className="text-base leading-snug">{item.name}</h3>
-                    <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">
-                      {item.body}
+                  <div>
+                    <h3 className="text-xl leading-snug">{FREE_POSTGRES_LIMIT.idleTitle}</h3>
+                    <p className="mt-1.5 max-w-[46ch] text-pretty text-sm leading-relaxed text-muted-foreground">
+                      {FREE_POSTGRES_LIMIT.idleBody}
                     </p>
-                    <p className="mt-3 text-sm font-semibold tabular-nums text-foreground">
-                      {item.count}
-                    </p>
-                    <p className="mt-0.5 text-sm text-foreground">{item.plan}</p>
                   </div>
-                </li>
-              ))}
-            </ul>
+                </div>
+              </div>
+
+              <div className="bg-prism-red-500/[0.05] p-6 sm:p-8">
+                <div className="flex items-start gap-3">
+                  <span
+                    aria-hidden
+                    className="mt-2 size-2 shrink-0 rounded-full bg-prism-red-500"
+                  />
+                  <div>
+                    <h3 className="text-xl leading-snug">{FREE_POSTGRES_LIMIT.capTitle}</h3>
+                    <p className="mt-1.5 max-w-[46ch] text-pretty text-sm leading-relaxed text-foreground">
+                      {FREE_POSTGRES_LIMIT.capBody}
+                    </p>
+                  </div>
+                </div>
+                <div className="mt-5 border-t border-prism-red-500/20 pt-5">
+                  <div className="flex items-start gap-3">
+                    <span
+                      aria-hidden
+                      className="mt-2 size-2 shrink-0 rounded-full bg-prism-yellow-400"
+                    />
+                    <div>
+                      <h3 className="text-lg leading-snug">{FREE_POSTGRES_LIMIT.restoreTitle}</h3>
+                      <p className="mt-1.5 max-w-[46ch] text-pretty text-sm leading-relaxed text-muted-foreground">
+                        {FREE_POSTGRES_LIMIT.restoreBody}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
+
+          <p className="relative border-t border-black/[0.06] px-6 py-4 text-pretty text-sm leading-relaxed text-muted-foreground sm:px-8">
+            {renderFaqAnswer(FREE_POSTGRES_LIMIT.paid)}
+          </p>
         </div>
       </div>
+    </section>
+  );
+}
+
+function FreeLimitCases() {
+  return (
+    <section className="bg-white px-4 pb-24 sm:px-8 sm:pb-32">
+      <ul className="mx-auto grid max-w-site grid-cols-1 gap-3 lg:grid-cols-3">
+        {FREE_POSTGRES_CASES.map((item) => (
+          <li
+            key={item.name}
+            className="overflow-hidden rounded-xl border border-black/[0.06] bg-white"
+          >
+            <Image
+              src={item.image}
+              alt={item.imageAlt}
+              width={800}
+              height={600}
+              className="h-24 w-full object-cover grayscale"
+            />
+            <div className="px-4 py-3">
+              <h3 className="text-base leading-snug">{item.name}</h3>
+              <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">{item.body}</p>
+              <p className="mt-3 text-sm font-semibold tabular-nums text-foreground">
+                {item.count}
+              </p>
+              <p className="mt-0.5 text-sm text-foreground">{item.plan}</p>
+            </div>
+          </li>
+        ))}
+      </ul>
     </section>
   );
 }
@@ -238,6 +291,7 @@ export function FreePostgresPage() {
         leadLayout="wide"
       />
       <FreeLimit />
+      <FreeLimitCases />
       <ProductFeatures
         features={{
           headline: "",
