@@ -28,6 +28,7 @@ import {
   FREE_POSTGRES_LIMIT,
   FREE_POSTGRES_MARKDOWN_SUBHEADLINE,
   FREE_POSTGRES_PLATFORM_BODY,
+  FREE_POSTGRES_PLATFORM_POINTS,
   FREE_POSTGRES_PRICING_CTA,
   FREE_POSTGRES_PRIMARY_CTA,
   FREE_POSTGRES_PROBLEM_HEADLINE,
@@ -153,6 +154,7 @@ export function renderFreePostgresqlDatabaseMarkdown(): string {
 
     heading(2, PRODUCT_PLATFORM_HEADING),
     paragraphs(FREE_POSTGRES_PLATFORM_BODY),
+    bulletList(FREE_POSTGRES_PLATFORM_POINTS.map((point) => `**${point.title}.** ${point.body}`)),
     paragraphs(`**${PRODUCT_PLATFORM_SWAP_LINE}**`),
 
     heading(2, COMPARE_PRISMA_HEADING),

@@ -38,6 +38,7 @@ import {
   FREE_POSTGRES_CASES,
   FREE_POSTGRES_LIMIT,
   FREE_POSTGRES_PLATFORM_BODY,
+  FREE_POSTGRES_PLATFORM_POINTS,
   FREE_POSTGRES_PRICING_CTA,
   FREE_POSTGRES_PRIMARY_CTA,
   FREE_POSTGRES_PROBLEM_HEADLINE,
@@ -310,7 +311,10 @@ export function FreePostgresPage() {
           })),
         }}
       />
-      <ProductPlatform platform={{ body: FREE_POSTGRES_PLATFORM_BODY }} />
+      <ProductPlatform
+        platform={{ body: FREE_POSTGRES_PLATFORM_BODY }}
+        points={FREE_POSTGRES_PLATFORM_POINTS}
+      />
       <CompareLinks intro={FREE_POSTGRES_COMPARE_INTRO} note={FREE_POSTGRES_COMPARE_NOTE} />
       <Faq items={FREE_POSTGRES_FAQ} id="faq" />
       <TestimonialsReveal heading={PRODUCT_TESTIMONIALS_HEADING} />

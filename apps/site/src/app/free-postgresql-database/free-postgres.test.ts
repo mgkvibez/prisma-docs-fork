@@ -374,6 +374,18 @@ test("the hero window is a plain terminal plus light agent sessions", () => {
   assert.ok(markdown.includes("### A team chat"));
   assert.ok(markdown.includes("[Needs Starter at $10 a month](/pricing)"));
   assert.ok(markdown.includes("about 20,000 a day."));
+  assert.ok(markdown.includes("Free includes [Prisma Compute](/compute)."));
+  assert.ok(
+    markdown.includes(
+      "**Included.** 1 million requests, 360 GB-hours, 4 active vCPU-hours, and 10 GB outbound.",
+    ),
+  );
+  assert.ok(markdown.includes("**One project.** The app and the database live together."));
+  assert.ok(
+    markdown.includes("**Idle scales to zero.** A quiet app waits until the next request."),
+  );
+  assert.ok(markdown.includes("**Best together. Swappable when needed.**"));
+  assert.ok(!markdown.includes("Host your app for free, too"));
   assert.ok(!markdown.includes("hair salon"));
   assert.ok(!markdown.includes("Restaurant orders"));
   assert.ok(!markdown.includes("visits times a few queries"));

@@ -442,8 +442,24 @@ export const FREE_POSTGRES_FEATURE_ITEMS = [
   },
 ] as const;
 
-export const FREE_POSTGRES_PLATFORM_BODY =
-  "Host your app for free, too. The same Free plan includes [Prisma Compute](/compute) for Node.js, Bun and Next.js apps: 1 million requests, 360 GB-hours of memory, 4 active vCPU-hours and 10 GB of outbound bandwidth a month. App and database live in one project, with one config. Declare the app and the database together. An idle app scales to zero.";
+export const FREE_POSTGRES_PLATFORM_BODY = "Free includes [Prisma Compute](/compute).";
+
+// Short lines under the platform heading. The swap line under them is the
+// shared "layers can be swapped" sentence. Nothing else from the old paragraph.
+export const FREE_POSTGRES_PLATFORM_POINTS = [
+  {
+    title: "Included",
+    body: "1 million requests, 360 GB-hours, 4 active vCPU-hours, and 10 GB outbound.",
+  },
+  {
+    title: "One project",
+    body: "The app and the database live together.",
+  },
+  {
+    title: "Idle scales to zero",
+    body: "A quiet app waits until the next request.",
+  },
+] as const;
 
 export const FREE_POSTGRES_COMPARE_INTRO =
   "Comparing free Postgres options? Free tiers differ in storage, how many databases you get, and what happens when you are idle or reach a limit.";
