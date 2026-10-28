@@ -128,7 +128,6 @@ export function renderFreePostgresqlDatabaseMarkdown(): string {
       ...FREE_POSTGRES_INCLUDED_ROWS.map((row) => `| ${row.label} | ${row.value} |`),
     ].join("\n"),
     FREE_POSTGRES_INCLUDED_NOTES.map((note) => `${note.n}. ${note.text}`).join("\n"),
-    bulletList(FREE_POSTGRES_FEATURE_ITEMS.map((item) => `**${item.name}:** ${item.description}`)),
 
     heading(2, FREE_POSTGRES_PROBLEM_HEADLINE),
     paragraphs(FREE_POSTGRES_LIMIT.intro),
@@ -147,6 +146,7 @@ export function renderFreePostgresqlDatabaseMarkdown(): string {
     paragraphs(FREE_POSTGRES_LIMIT.restoreBody),
     paragraphs(FREE_POSTGRES_LIMIT.paid),
     paragraphs(`TO CONFIRM WITH ENGINEERING: ${STORAGE_CONFIRM}`),
+    bulletList(FREE_POSTGRES_FEATURE_ITEMS.map((item) => `**${item.name}:** ${item.description}`)),
 
     heading(2, PRODUCT_PLATFORM_HEADING),
     paragraphs(FREE_POSTGRES_PLATFORM_BODY),

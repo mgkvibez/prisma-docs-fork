@@ -251,9 +251,8 @@ export function EngineeringConfirm({ children }: { children: ReactNode }) {
 }
 
 // Same sections as /postgres, with the free-plan contents directly under the
-// hero. The limit comes after that, so the allowance is the first thing you
-// read and the catch comes second. Composed here so the limit section and the
-// engineering callouts stay on this page only.
+// hero. The limit comes next, then the two cards. Composed here so the limit
+// section and the engineering callouts stay on this page only.
 export function FreePostgresPage() {
   return (
     <>
@@ -276,15 +275,22 @@ export function FreePostgresPage() {
           headline: FREE_POSTGRES_FEATURES_HEADLINE,
           // The pricing, create-db, and connection-string links sit on the panel.
           bridge: "",
-          items: FREE_POSTGRES_FEATURE_ITEMS.map((item) => ({
-            ...item,
-            illustration: item.illustration as ProductIllustrationName,
-          })),
+          items: [],
         }}
         lead={<FreePostgresIncluded />}
         leadLayout="wide"
       />
       <FreeLimit />
+      <ProductFeatures
+        features={{
+          headline: "",
+          bridge: "",
+          items: FREE_POSTGRES_FEATURE_ITEMS.map((item) => ({
+            ...item,
+            illustration: item.illustration as ProductIllustrationName,
+          })),
+        }}
+      />
       <ProductPlatform platform={{ body: FREE_POSTGRES_PLATFORM_BODY }} />
       <CompareLinks intro={FREE_POSTGRES_COMPARE_INTRO} note={FREE_POSTGRES_COMPARE_NOTE} />
       <Faq items={FREE_POSTGRES_FAQ} id="faq" />

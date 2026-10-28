@@ -22,6 +22,7 @@ import {
   FREE_POSTGRES_HERO_PRIMARY_CTA,
   FREE_POSTGRES_PATH,
   FREE_POSTGRES_PRIMARY_CTA,
+  FREE_POSTGRES_PROBLEM_HEADLINE,
   FREE_POSTGRES_MARKDOWN_SUBHEADLINE,
   FREE_POSTGRES_SUBHEADLINE,
   FREE_POSTGRES_CLAUDE,
@@ -294,7 +295,10 @@ test("the hero window is a plain terminal plus light agent sessions", () => {
   const accountLink = markdown.indexOf(`[Get started](${CONSOLE_SIGN_UP_URL})`);
   const firstCheck = markdown.indexOf(FREE_POSTGRES_HERO_CHECKS[0]);
   const secondCheck = markdown.indexOf(FREE_POSTGRES_HERO_CHECKS[1]);
-  assert.ok(instantLink >= 0 && accountLink > instantLink, "instant database is the first hero button");
+  assert.ok(
+    instantLink >= 0 && accountLink > instantLink,
+    "instant database is the first hero button",
+  );
   assert.ok(accountLink > instantLink && firstCheck > accountLink && secondCheck > firstCheck);
   const includedCards = markdown.indexOf("**2 GB.** of [storage](/pricing)");
   const includedTable = markdown.indexOf("| Connections |");
@@ -327,11 +331,19 @@ test("the hero window is a plain terminal plus light agent sessions", () => {
       "**When to upgrade:** Backups, a spend limit, or compliance. Paid plans take a daily snapshot on days the database is used. [HIPAA](/postgres/hipaa), SOC 2, and ISO 27001 are on Business. The plan grid is on [pricing](/pricing).",
     ),
   );
+  const limitHeading = markdown.indexOf(`## ${FREE_POSTGRES_PROBLEM_HEADLINE}`);
+  const buildCard = markdown.indexOf("**What developers build on it:**");
+  assert.ok(
+    backupNote < limitHeading && limitHeading < buildCard,
+    "limit section sits between the includes panel and the two cards",
+  );
   assert.ok(!markdown.includes("For evaluation only"));
   assert.ok(!markdown.includes("Whether upgrading a workspace keeps the same connection string"));
   assert.ok(!markdown.includes("embedding demo"));
   assert.ok(!markdown.includes("Starter, $10 a month"));
-  assert.ok(markdown.includes("TO CONFIRM WITH ENGINEERING: What happens when a database reaches 2 GB"));
+  assert.ok(
+    markdown.includes("TO CONFIRM WITH ENGINEERING: What happens when a database reaches 2 GB"),
+  );
 
   const sections = readFileSync(new URL("./_sections.tsx", import.meta.url), "utf8");
   assert.match(sections, /one\s+query each/);
