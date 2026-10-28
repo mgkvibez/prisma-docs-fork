@@ -10,7 +10,6 @@ import {
   FREE_POSTGRES_COMPARE_NOTE,
   FREE_POSTGRES_FAQ,
   FREE_POSTGRES_FEATURE_ITEMS,
-  FREE_POSTGRES_FEATURES_BRIDGE,
   FREE_POSTGRES_FEATURES_HEADLINE,
   FREE_POSTGRES_CLAUDE,
   FREE_POSTGRES_CODEX,
@@ -130,7 +129,6 @@ export function renderFreePostgresqlDatabaseMarkdown(): string {
       ...FREE_POSTGRES_INCLUDED_ROWS.map((row) => `| ${row.label} | ${row.value} |`),
     ].join("\n"),
     FREE_POSTGRES_INCLUDED_NOTES.map((note) => `${note.n}. ${note.text}`).join("\n"),
-    paragraphs(FREE_POSTGRES_FEATURES_BRIDGE),
     bulletList(FREE_POSTGRES_FEATURE_ITEMS.map((item) => `**${item.name}:** ${item.description}`)),
     paragraphs(`TO CONFIRM WITH ENGINEERING: ${CONNECTION_CONFIRM}`),
 

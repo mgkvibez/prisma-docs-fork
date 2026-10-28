@@ -37,7 +37,6 @@ export const FREE_POSTGRES_HERO_CHECKS = [
 ] as const;
 
 export const FREE_POSTGRES_LAST_MODIFIED = "2026-10-21";
-export const FREE_POSTGRES_UPDATED_LABEL = "Last updated: 21 October 2026";
 
 export const CONSOLE_SIGN_UP_URL = "https://console.prisma.io/sign-up";
 export const CREATE_DB_WEB_URL = "https://create-db.prisma.io";
@@ -330,8 +329,6 @@ export const CONNECTION_CONFIRM = "Whether upgrading a workspace keeps the same 
 
 export const FREE_POSTGRES_FEATURES_HEADLINE = "What a free PostgreSQL database includes";
 
-export const FREE_POSTGRES_FEATURES_BRIDGE = `A managed [Prisma Postgres](/postgres) workspace you can keep. These allowances match [pricing](/pricing). Prisma Postgres Free plan. ${FREE_POSTGRES_UPDATED_LABEL}. The [npx create-db docs](${DOCS_CREATE_DB}) cover flags, regions and claiming. Connecting later is a standard [Postgres connection string](${DOCS_CONNECT}).`;
-
 export type FreePostgresIncludedCard = {
   /** The amount, or the short name when the allowance is not a number. */
   title: string;
@@ -342,15 +339,15 @@ export type FreePostgresIncludedCard = {
 
 // The three headline allowances. Rules sit in FREE_POSTGRES_INCLUDED_NOTES.
 export const FREE_POSTGRES_INCLUDED_CARDS: readonly FreePostgresIncludedCard[] = [
-  { title: "2 GB", detail: "of storage, enough for a real schema and sample rows." },
+  { title: "2 GB", detail: "of [storage](/pricing), enough for a real schema and sample rows." },
   {
     title: "200,000",
-    detail: "operations a month. One query is one operation.",
+    detail: "[operations](/pricing) a month. One query is one operation.",
     note: 1,
   },
   {
     title: "Up to 50",
-    detail: "databases. A fresh database per app, branch, or experiment.",
+    detail: `[databases](/pricing). A fresh database per app, branch, or experiment with [npx create-db](${DOCS_CREATE_DB}).`,
   },
 ];
 
@@ -366,7 +363,10 @@ export const FREE_POSTGRES_INCLUDED_ROWS: readonly FreePostgresIncludedRow[] = [
       "10 pooled for the app, and 10 direct for migrations, Studio, and pg_dump, per database.",
   },
   { label: "Data transfer", value: "No meter on what the database sends or receives." },
-  { label: "Postgres", value: "Version 17, encrypted in transit, with a pooler built in." },
+  {
+    label: "Postgres",
+    value: `Version 17, encrypted in transit, with a pooler and a [connection string](${DOCS_CONNECT}).`,
+  },
   {
     label: "Extensions",
     value: `[pgvector](${DOCS_EXTENSIONS}) for similarity search, plus pg_search, pg_trgm, and pgcrypto.`,

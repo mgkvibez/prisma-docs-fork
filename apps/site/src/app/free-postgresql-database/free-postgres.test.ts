@@ -8,6 +8,9 @@ import {
   CONSOLE_SIGN_UP_URL,
   CREATE_DB_COMMAND,
   CREATE_DB_WEB_URL,
+  DOCS_CONNECT,
+  DOCS_CREATE_DB,
+  DOCS_REGIONS,
   FREE_POSTGRES_HERO_SECONDARY_CTA,
   FREE_POSTGRES_DESCRIPTION,
   FREE_POSTGRES_FAQ,
@@ -293,7 +296,7 @@ test("the hero window is a plain terminal plus light agent sessions", () => {
   const secondCheck = markdown.indexOf(FREE_POSTGRES_HERO_CHECKS[1]);
   assert.ok(instantLink >= 0 && accountLink > instantLink, "instant database is the first hero button");
   assert.ok(accountLink > instantLink && firstCheck > accountLink && secondCheck > firstCheck);
-  const includedCards = markdown.indexOf("**2 GB.** of storage");
+  const includedCards = markdown.indexOf("**2 GB.** of [storage](/pricing)");
   const includedTable = markdown.indexOf("| Connections |");
   const resetNote = markdown.indexOf("1. Operations reset on the 1st of every month.");
   const backupNote = markdown.indexOf(
@@ -307,6 +310,13 @@ test("the hero window is a plain terminal plus light agent sessions", () => {
   );
   assert.ok(!markdown.includes("### What you get"));
   assert.ok(!markdown.includes("**No backups.**"));
+  assert.ok(markdown.includes("[operations](/pricing)"));
+  assert.ok(markdown.includes("[databases](/pricing)"));
+  assert.ok(markdown.includes(`[npx create-db](${DOCS_CREATE_DB})`));
+  assert.ok(markdown.includes(`[connection string](${DOCS_CONNECT})`));
+  assert.ok(markdown.includes(`[one of six](${DOCS_REGIONS})`));
+  assert.ok(!markdown.includes("Last updated: 21 October 2026"));
+  assert.ok(!markdown.includes("workspace you can keep"));
 
   const sections = readFileSync(new URL("./_sections.tsx", import.meta.url), "utf8");
   assert.match(sections, /one\s+query each/);

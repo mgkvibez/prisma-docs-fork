@@ -30,7 +30,6 @@ import {
   FREE_POSTGRES_COMPARE_NOTE,
   FREE_POSTGRES_FAQ,
   FREE_POSTGRES_FEATURE_ITEMS,
-  FREE_POSTGRES_FEATURES_BRIDGE,
   FREE_POSTGRES_FEATURES_HEADLINE,
   FREE_POSTGRES_H1,
   FREE_POSTGRES_HERO_CHECKS,
@@ -276,7 +275,8 @@ export function FreePostgresPage() {
       <ProductFeatures
         features={{
           headline: FREE_POSTGRES_FEATURES_HEADLINE,
-          bridge: FREE_POSTGRES_FEATURES_BRIDGE,
+          // The pricing, create-db, and connection-string links sit on the panel.
+          bridge: "",
           items: FREE_POSTGRES_FEATURE_ITEMS.map((item) => ({
             ...item,
             illustration: item.illustration as ProductIllustrationName,

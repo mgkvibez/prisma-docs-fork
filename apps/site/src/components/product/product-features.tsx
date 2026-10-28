@@ -121,13 +121,15 @@ export function ProductFeatures({
           {leadLayout === "wide" ? (
             <>
               {lead ? <div className="mt-8 text-left">{lead}</div> : null}
-              <div className="mx-auto max-w-3xl text-center max-md:text-left">
-                <Reveal delay={0.1}>
-                  <p className="mt-5 text-pretty text-lg leading-relaxed text-muted-foreground">
-                    {renderFaqAnswer(features.bridge)}
-                  </p>
-                </Reveal>
-              </div>
+              {features.bridge ? (
+                <div className="mx-auto max-w-3xl text-center max-md:text-left">
+                  <Reveal delay={0.1}>
+                    <p className="mt-5 text-pretty text-lg leading-relaxed text-muted-foreground">
+                      {renderFaqAnswer(features.bridge)}
+                    </p>
+                  </Reveal>
+                </div>
+              ) : null}
             </>
           ) : null}
           <div
