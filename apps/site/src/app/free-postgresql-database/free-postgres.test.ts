@@ -317,12 +317,17 @@ test("the hero window is a plain terminal plus light agent sessions", () => {
   assert.ok(markdown.includes(`[one of six](${DOCS_REGIONS})`));
   assert.ok(!markdown.includes("Last updated: 21 October 2026"));
   assert.ok(!markdown.includes("workspace you can keep"));
-  assert.ok(markdown.includes("**What developers build on it:** For evaluation only. Not for production workloads."));
   assert.ok(
     markdown.includes(
-      "**When to upgrade:** When you need backups or a spend limit. Paid plans take a daily snapshot on days the database is used. See [pricing](/pricing).",
+      "**What developers build on it:** Side projects, agent experiments, and small apps. Prototypes, tests, and coding agents too.",
     ),
   );
+  assert.ok(
+    markdown.includes(
+      "**When to upgrade:** Backups, a spend limit, or compliance. Paid plans take a daily snapshot on days the database is used. [HIPAA](/postgres/hipaa), SOC 2, and ISO 27001 are on Business. The plan grid is on [pricing](/pricing).",
+    ),
+  );
+  assert.ok(!markdown.includes("For evaluation only"));
   assert.ok(!markdown.includes("Whether upgrading a workspace keeps the same connection string"));
   assert.ok(!markdown.includes("embedding demo"));
   assert.ok(!markdown.includes("Starter, $10 a month"));

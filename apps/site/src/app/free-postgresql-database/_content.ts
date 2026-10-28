@@ -398,13 +398,13 @@ export const FREE_POSTGRES_INCLUDED_NOTES = [
 export const FREE_POSTGRES_FEATURE_ITEMS = [
   {
     name: "What developers build on it",
-    description: "For evaluation only. Not for production workloads.",
+    description: "Side projects, agent experiments, and small apps. Prototypes, tests, and coding agents too.",
     illustration: "runApps",
   },
   {
     name: "When to upgrade",
     description:
-      "When you need backups or a spend limit. Paid plans take a daily snapshot on days the database is used. See [pricing](/pricing).",
+      "Backups, a spend limit, or compliance. Paid plans take a daily snapshot on days the database is used. [HIPAA](/postgres/hipaa), SOC 2, and ISO 27001 are on Business. The plan grid is on [pricing](/pricing).",
     illustration: "compliance",
   },
 ] as const;
