@@ -50,7 +50,6 @@ export const DOCS_EXTENSIONS = "/docs/postgres/database/postgres-extensions";
 export const DOCS_REGIONS = "/docs/postgres/faq#what-regions-is-prisma-postgres-available-in";
 export const DOCS_POOLING = "/docs/postgres/database/connection-pooling";
 export const COMPARE_SERVERLESS = "/blog/serverless-postgres";
-export const COMPARE_NEON_PRICING = "/blog/prisma-postgres-vs-neon-pricing-2026";
 
 export type FreeFaqItem = {
   question: string;
@@ -462,9 +461,27 @@ export const FREE_POSTGRES_PLATFORM_POINTS = [
 ] as const;
 
 export const FREE_POSTGRES_COMPARE_INTRO =
-  "Comparing free Postgres options? Free tiers differ in storage, how many databases you get, and what happens when you are idle or reach a limit.";
+  "Free tiers differ in storage, databases, and the limit.";
 
-export const FREE_POSTGRES_COMPARE_NOTE = `For a longer look at serverless Postgres providers, read the [comparison of free Postgres hosting](${COMPARE_SERVERLESS}) and the [Prisma Postgres vs Neon pricing](${COMPARE_NEON_PRICING}) post. Extensions and regions are in the [extensions](${DOCS_EXTENSIONS}) and [regions](${DOCS_REGIONS}) docs. Connection pooling is [built in](${DOCS_POOLING}).`;
+// The few comparisons a free Postgres reader needs. The shared list on
+// /postgres stays as it is.
+export const FREE_POSTGRES_COMPARE_LINKS = [
+  {
+    label: "Prisma Postgres vs Neon",
+    href: "/compare/neon",
+    description: "Postgres and Prisma in one project, or Neon on its own.",
+  },
+  {
+    label: "Prisma Postgres vs Supabase",
+    href: "/compare/supabase",
+    description: "Postgres with Prisma, or Supabase with Auth and Storage.",
+  },
+  {
+    label: "Free Postgres hosting compared",
+    href: COMPARE_SERVERLESS,
+    description: "How free tiers differ when you are idle or hit the cap.",
+  },
+] as const;
 
 export const FREE_POSTGRES_CLOSER_HEADLINE = "Create your free database";
 

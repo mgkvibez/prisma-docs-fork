@@ -1,4 +1,3 @@
-import { COMPARE_PRISMA_LINKS } from "@/components/sections/compare-links-data";
 import { TESTIMONIALS } from "@/components/sections/testimonials-data";
 import {
   FREE_POSTGRES_HERO_SECONDARY_CTA,
@@ -6,7 +5,7 @@ import {
   FREE_POSTGRES_CLOSER_BODY,
   FREE_POSTGRES_CLOSER_HEADLINE,
   FREE_POSTGRES_COMPARE_INTRO,
-  FREE_POSTGRES_COMPARE_NOTE,
+  FREE_POSTGRES_COMPARE_LINKS,
   FREE_POSTGRES_FAQ,
   FREE_POSTGRES_FEATURE_ITEMS,
   FREE_POSTGRES_FEATURES_HEADLINE,
@@ -159,9 +158,10 @@ export function renderFreePostgresqlDatabaseMarkdown(): string {
 
     heading(2, COMPARE_PRISMA_HEADING),
     paragraphs(FREE_POSTGRES_COMPARE_INTRO),
-    paragraphs(FREE_POSTGRES_COMPARE_NOTE),
     bulletList(
-      COMPARE_PRISMA_LINKS.map((item) => `[${item.label}](${item.href}): ${item.description}`),
+      FREE_POSTGRES_COMPARE_LINKS.map(
+        (item) => `[${item.label}](${item.href}): ${item.description}`,
+      ),
     ),
 
     heading(2, PRODUCT_FAQ_HEADING),
