@@ -20,7 +20,6 @@ import {
   FREE_POSTGRES_INCLUDED_NOTES,
   FREE_POSTGRES_INCLUDED_ROWS,
   FREE_POSTGRES_CASES,
-  FREE_POSTGRES_CASES_HEADLINE,
   FREE_POSTGRES_LIMIT,
   FREE_POSTGRES_HERO_PRIMARY_CTA,
   FREE_POSTGRES_PATH,
@@ -172,11 +171,12 @@ test("user-visible content and FAQ schema have no em or en dashes", () => {
   for (const line of Object.values(FREE_POSTGRES_CURSOR)) assert.ok(!DASHES.test(line));
   for (const line of Object.values(FREE_POSTGRES_COPILOT)) assert.ok(!DASHES.test(line));
   for (const line of Object.values(FREE_POSTGRES_LIMIT)) assert.ok(!DASHES.test(line));
-  assert.ok(!DASHES.test(FREE_POSTGRES_CASES_HEADLINE));
   for (const item of FREE_POSTGRES_CASES) {
-    assert.ok(!DASHES.test(`${item.name} ${item.count} ${item.tail}`));
-    assert.ok(!/\bapp\b/i.test(`${item.name} ${item.count} ${item.tail}`));
+    const text = `${item.name} ${item.body} ${item.count} ${item.plan}`;
+    assert.ok(!DASHES.test(text));
+    assert.ok(!/\bapp\b/i.test(text));
     assert.ok(item.count.startsWith("about "), `${item.name} is marked approximate`);
+    assert.ok(item.plan === "Stays on Free" || item.plan === "Needs a paid plan");
   }
   assert.ok(!/\bapp\b/i.test(Object.values(FREE_POSTGRES_LIMIT).join(" ")));
 });
@@ -343,16 +343,17 @@ test("the hero window is a plain terminal plus light agent sessions", () => {
     ),
   );
   const limitHeading = markdown.indexOf(`## ${FREE_POSTGRES_PROBLEM_HEADLINE}`);
-  const casesHeading = markdown.indexOf(`## ${FREE_POSTGRES_CASES_HEADLINE}`);
+  const blogCase = markdown.indexOf("### A personal blog");
   const buildCard = markdown.indexOf("**What developers build on it:**");
   assert.ok(
-    backupNote < limitHeading && limitHeading < casesHeading && casesHeading < buildCard,
-    "the limit, then the rough days, then the two cards",
+    backupNote < limitHeading && limitHeading < blogCase && blogCase < buildCard,
+    "the three cards sit in the limit section, before the two feature cards",
   );
+  assert.ok(!markdown.includes("Roughly, in a day"));
+  assert.ok(!markdown.includes("Queries stop at 200,000"));
+  assert.equal(markdown.split("Queries stop").length - 1, 1);
   assert.ok(
-    markdown.includes(
-      "Queries stop at 200,000 operations until the 1st of the next month, or until you upgrade.",
-    ),
+    markdown.includes("Queries stop until the 1st of the next month, or until you upgrade."),
   );
   assert.ok(markdown.includes("One query is one operation: a simple read, a write, or a join."));
   assert.ok(markdown.includes("200,000 operations a month"));
@@ -362,14 +363,15 @@ test("the hero window is a plain terminal plus light agent sessions", () => {
     markdown.includes("Idle is free. A quiet database costs nothing, and the next query wakes it."),
   );
   assert.ok(markdown.includes("restore access for 24 hours"));
-  assert.ok(markdown.includes("A personal blog, **about 40** a day."));
-  assert.ok(markdown.includes("An online shop for a local bakery, **about 300** a day."));
-  assert.ok(
-    markdown.includes(
-      "A restaurant taking orders online, **about 10,000** a day. It needs a paid plan.",
-    ),
-  );
-  assert.ok(!markdown.includes("hair salon"));
+  assert.ok(markdown.includes("### A personal blog"));
+  assert.ok(markdown.includes("A visit loads the list of posts, then the post."));
+  assert.ok(markdown.includes("about 40 a day. Stays on Free."));
+  assert.ok(markdown.includes("### An online shop for a local bakery"));
+  assert.ok(markdown.includes("about 300 a day. Stays on Free."));
+  assert.ok(markdown.includes("### A small local hair salon"));
+  assert.ok(markdown.includes("Bookings go through Cal.com and payments go through Stripe"));
+  assert.ok(markdown.includes("about 100 a day. Stays on Free."));
+  assert.ok(!markdown.includes("Restaurant orders"));
   assert.ok(!markdown.includes("visits times a few queries"));
   assert.ok(!markdown.includes("For evaluation only"));
   assert.ok(!markdown.includes("Whether upgrading a workspace keeps the same connection string"));

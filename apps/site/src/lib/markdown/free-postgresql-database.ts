@@ -25,7 +25,6 @@ import {
   FREE_POSTGRES_INCLUDED_NOTES,
   FREE_POSTGRES_INCLUDED_ROWS,
   FREE_POSTGRES_CASES,
-  FREE_POSTGRES_CASES_HEADLINE,
   FREE_POSTGRES_LIMIT,
   FREE_POSTGRES_MARKDOWN_SUBHEADLINE,
   FREE_POSTGRES_PLATFORM_BODY,
@@ -129,18 +128,19 @@ export function renderFreePostgresqlDatabaseMarkdown(): string {
     FREE_POSTGRES_INCLUDED_NOTES.map((note) => `${note.n}. ${note.text}`).join("\n"),
 
     heading(2, FREE_POSTGRES_PROBLEM_HEADLINE),
-    paragraphs(FREE_POSTGRES_LIMIT.catch),
     paragraphs(FREE_POSTGRES_LIMIT.counts),
     bulletList([
       `${FREE_POSTGRES_LIMIT.monthFigure} ${FREE_POSTGRES_LIMIT.monthLabel}`,
       `${FREE_POSTGRES_LIMIT.dayFigure} ${FREE_POSTGRES_LIMIT.dayLabel}`,
     ]),
     paragraphs(FREE_POSTGRES_LIMIT.idle),
-    paragraphs(FREE_POSTGRES_LIMIT.restore),
-    paragraphs(FREE_POSTGRES_LIMIT.paid),
-
-    heading(2, FREE_POSTGRES_CASES_HEADLINE),
-    ...FREE_POSTGRES_CASES.map((item) => `${item.name}, **${item.count}** ${item.tail}`),
+    paragraphs(FREE_POSTGRES_LIMIT.stop),
+    paragraphs(`${FREE_POSTGRES_LIMIT.restore} ${FREE_POSTGRES_LIMIT.paid}`),
+    ...FREE_POSTGRES_CASES.flatMap((item) => [
+      heading(3, item.name),
+      paragraphs(item.body),
+      paragraphs(`${item.count}. ${item.plan}.`),
+    ]),
     bulletList(FREE_POSTGRES_FEATURE_ITEMS.map((item) => `**${item.name}:** ${item.description}`)),
 
     heading(2, PRODUCT_PLATFORM_HEADING),
