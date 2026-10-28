@@ -18,8 +18,12 @@ export const blogPosts = defineCollections({
   schema: frontmatterSchema.extend({
     authors: z.array(z.string()),
     authorSrc: z.string().optional(),
-    date: z.coerce.date(),
-    updatedAt: z.coerce.date().optional(),
+    // `date: 2026-07-24`, quoted or not, parses as a string and becomes a Date
+    // here. Anything but a real YYYY-MM-DD date fails the build: coercing the
+    // raw value would turn an empty or numeric one into a 1970 date and roll
+    // 2026-02-30 over to March 2.
+    date: z.iso.date().pipe(z.coerce.date()),
+    updatedAt: z.iso.date().pipe(z.coerce.date()).optional(),
     heroImagePath: z.string().optional(),
     metaImagePath: z.string().optional(),
     series: z.string().optional(),
