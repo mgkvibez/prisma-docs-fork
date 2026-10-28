@@ -18,6 +18,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { renderFaqAnswer } from "@/lib/faq-answer";
+import { cn } from "@/lib/utils";
 import { PRODUCT_TESTIMONIALS_HEADING } from "@/lib/markdown/product";
 import {
   CONNECTION_CONFIRM,
@@ -49,43 +50,63 @@ import { FreePostgresTerminal } from "./_terminal";
 
 function FreePostgresIncluded() {
   return (
-    <div className="flex flex-col gap-6">
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
-        {FREE_POSTGRES_INCLUDED_CARDS.map((card) => (
-          <Card key={card.title} className="h-full gap-4 rounded-2xl py-10 shadow-none">
-            <CardHeader className="gap-3 px-8">
-              <CardTitle className="text-5xl font-bold leading-none tabular-nums text-foreground sm:text-6xl">
+    <div className="overflow-hidden rounded-[1.5rem] border border-black/[0.06] bg-white text-left">
+      <div className="grid grid-cols-1 sm:grid-cols-3">
+        {FREE_POSTGRES_INCLUDED_CARDS.map((card, index) => (
+          <Card
+            key={card.title}
+            className={cn(
+              "h-full gap-0 rounded-none border-0 bg-transparent py-0 shadow-none",
+              index < FREE_POSTGRES_INCLUDED_CARDS.length - 1 &&
+                "border-b border-black/[0.06] sm:border-r sm:border-b-0",
+            )}
+          >
+            <CardHeader className="gap-3 px-6 py-8 sm:px-8 sm:py-10">
+              <CardTitle className="text-[clamp(2.25rem,3vw,2.75rem)] font-semibold leading-none tabular-nums text-foreground">
                 {renderFaqAnswer(card.title)}
                 {card.note ? (
                   <a href={`#free-postgres-note-${card.note}`} className="ml-0.5">
-                    <sup className="text-2xl">{card.note}</sup>
+                    <sup className="text-sm font-medium">{card.note}</sup>
                   </a>
                 ) : null}
               </CardTitle>
-              <CardDescription className="text-pretty text-lg font-bold leading-snug text-foreground sm:text-xl">
+              <CardDescription className="max-w-[32ch] text-pretty text-[0.9375rem] font-normal leading-relaxed">
                 {renderFaqAnswer(card.detail)}
               </CardDescription>
             </CardHeader>
           </Card>
         ))}
       </div>
-      <Table>
-        <TableHeader>
-          <TableRow>
-            <TableHead className="w-44">Feature</TableHead>
-            <TableHead>Included</TableHead>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {FREE_POSTGRES_INCLUDED_ROWS.map((row) => (
-            <TableRow key={row.label}>
-              <TableCell className="font-medium whitespace-normal">{row.label}</TableCell>
-              <TableCell className="whitespace-normal">{renderFaqAnswer(row.value)}</TableCell>
+      <div className="border-t border-black/[0.06]">
+        <Table>
+          <TableHeader>
+            <TableRow className="border-black/[0.06] hover:bg-transparent">
+              <TableHead className="h-auto w-44 px-6 py-3 text-sm font-medium text-muted-foreground sm:px-8">
+                Feature
+              </TableHead>
+              <TableHead className="h-auto px-6 py-3 text-sm font-medium text-muted-foreground sm:px-8">
+                Included
+              </TableHead>
             </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-      <div id="free-postgres-notes" className="flex flex-col gap-1 text-sm text-muted-foreground">
+          </TableHeader>
+          <TableBody>
+            {FREE_POSTGRES_INCLUDED_ROWS.map((row) => (
+              <TableRow key={row.label} className="border-black/[0.06] hover:bg-transparent">
+                <TableCell className="px-6 py-4 font-medium whitespace-normal text-foreground sm:px-8">
+                  {row.label}
+                </TableCell>
+                <TableCell className="px-6 py-4 leading-relaxed whitespace-normal text-foreground sm:px-8">
+                  {renderFaqAnswer(row.value)}
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </div>
+      <div
+        id="free-postgres-notes"
+        className="flex flex-col gap-1.5 border-t border-black/[0.06] px-6 py-5 text-sm leading-relaxed text-muted-foreground sm:px-8"
+      >
         {FREE_POSTGRES_INCLUDED_NOTES.map((note) => (
           <p key={note.n} id={`free-postgres-note-${note.n}`}>
             <sup>{note.n}</sup> {note.text}
