@@ -19,9 +19,9 @@ import {
   FREE_POSTGRES_INCLUDED_CARDS,
   FREE_POSTGRES_INCLUDED_NOTES,
   FREE_POSTGRES_INCLUDED_ROWS,
+  FREE_POSTGRES_CASES,
+  FREE_POSTGRES_CASES_HEADLINE,
   FREE_POSTGRES_LIMIT,
-  FREE_POSTGRES_LIMIT_EXAMPLES,
-  FREE_POSTGRES_LIMIT_EXAMPLES_NOTE,
   FREE_POSTGRES_HERO_PRIMARY_CTA,
   FREE_POSTGRES_PATH,
   FREE_POSTGRES_PRIMARY_CTA,
@@ -172,14 +172,12 @@ test("user-visible content and FAQ schema have no em or en dashes", () => {
   for (const line of Object.values(FREE_POSTGRES_CURSOR)) assert.ok(!DASHES.test(line));
   for (const line of Object.values(FREE_POSTGRES_COPILOT)) assert.ok(!DASHES.test(line));
   for (const line of Object.values(FREE_POSTGRES_LIMIT)) assert.ok(!DASHES.test(line));
-  assert.ok(!DASHES.test(FREE_POSTGRES_LIMIT_EXAMPLES_NOTE));
-  for (const example of FREE_POSTGRES_LIMIT_EXAMPLES) {
-    assert.ok(!DASHES.test(example.name));
-    assert.ok(!DASHES.test(example.count));
-    assert.ok(!DASHES.test(example.basis));
-    assert.ok(!/\bapp\b/i.test(`${example.name} ${example.count} ${example.basis}`));
+  assert.ok(!DASHES.test(FREE_POSTGRES_CASES_HEADLINE));
+  for (const item of FREE_POSTGRES_CASES) {
+    assert.ok(!DASHES.test(`${item.name} ${item.count} ${item.tail}`));
+    assert.ok(!/\bapp\b/i.test(`${item.name} ${item.count} ${item.tail}`));
+    assert.ok(item.count.startsWith("about "), `${item.name} is marked approximate`);
   }
-  assert.ok(!/\bapp\b/i.test(FREE_POSTGRES_LIMIT_EXAMPLES_NOTE));
   assert.ok(!/\bapp\b/i.test(Object.values(FREE_POSTGRES_LIMIT).join(" ")));
 });
 
@@ -345,29 +343,34 @@ test("the hero window is a plain terminal plus light agent sessions", () => {
     ),
   );
   const limitHeading = markdown.indexOf(`## ${FREE_POSTGRES_PROBLEM_HEADLINE}`);
-  const blogExample = markdown.indexOf("### A personal blog");
+  const casesHeading = markdown.indexOf(`## ${FREE_POSTGRES_CASES_HEADLINE}`);
   const buildCard = markdown.indexOf("**What developers build on it:**");
   assert.ok(
-    backupNote < limitHeading && limitHeading < blogExample && blogExample < buildCard,
-    "the limit, then the daily sketches, then the two cards",
+    backupNote < limitHeading && limitHeading < casesHeading && casesHeading < buildCard,
+    "the limit, then the rough days, then the two cards",
   );
   assert.ok(
     markdown.includes(
       "Queries stop at 200,000 operations until the 1st of the next month, or until you upgrade.",
     ),
   );
-  assert.ok(
-    markdown.includes("One query is one operation. A read, a write, or a join counts as one."),
-  );
-  assert.ok(markdown.includes("200,000 divided by 30, then rounded."));
+  assert.ok(markdown.includes("One query is one operation: a simple read, a write, or a join."));
+  assert.ok(markdown.includes("200,000 operations a month"));
+  assert.ok(markdown.includes("about 6,600 queries a day"));
+  assert.ok(!markdown.includes("divided by 30"));
   assert.ok(
     markdown.includes("Idle is free. A quiet database costs nothing, and the next query wakes it."),
   );
-  assert.ok(markdown.includes("### An online shop for a local bakery"));
-  assert.ok(markdown.includes("about 40 a day"));
-  assert.ok(markdown.includes("about 300 a day"));
-  assert.ok(markdown.includes("about 90 a day"));
-  assert.ok(markdown.includes("Approximate. Each figure is visits times a few queries"));
+  assert.ok(markdown.includes("restore access for 24 hours"));
+  assert.ok(markdown.includes("A personal blog, **about 40** a day."));
+  assert.ok(markdown.includes("An online shop for a local bakery, **about 300** a day."));
+  assert.ok(
+    markdown.includes(
+      "A restaurant taking orders online, **about 10,000** a day. It needs a paid plan.",
+    ),
+  );
+  assert.ok(!markdown.includes("hair salon"));
+  assert.ok(!markdown.includes("visits times a few queries"));
   assert.ok(!markdown.includes("For evaluation only"));
   assert.ok(!markdown.includes("Whether upgrading a workspace keeps the same connection string"));
   assert.ok(!markdown.includes("embedding demo"));

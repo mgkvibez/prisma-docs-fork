@@ -34,9 +34,9 @@ import {
   FREE_POSTGRES_INCLUDED_CARDS,
   FREE_POSTGRES_INCLUDED_NOTES,
   FREE_POSTGRES_INCLUDED_ROWS,
+  FREE_POSTGRES_CASES,
+  FREE_POSTGRES_CASES_HEADLINE,
   FREE_POSTGRES_LIMIT,
-  FREE_POSTGRES_LIMIT_EXAMPLES,
-  FREE_POSTGRES_LIMIT_EXAMPLES_NOTE,
   FREE_POSTGRES_PLATFORM_BODY,
   FREE_POSTGRES_PRICING_CTA,
   FREE_POSTGRES_PRIMARY_CTA,
@@ -138,12 +138,12 @@ function LimitFigure({ figure, label }: { figure: string; label: string }) {
 }
 
 // The free plan's limit, as one reading column. The catch is the sentence
-// under the heading. The panel holds the four facts. The three daily sketches
-// sit under the panel. Free-page only. ProductProblem stays the centered
-// narrative /postgres uses.
+// under the heading. The panel holds what a query counts as, the two paces,
+// idle, and the one-time restore. Free-page only. ProductProblem stays the
+// centered narrative /postgres uses.
 function FreeLimit() {
   return (
-    <section id="limits" className="scroll-mt-28 bg-white px-4 py-24 sm:px-8 sm:py-32">
+    <section id="limits" className="scroll-mt-28 bg-white px-4 pt-24 sm:px-8 sm:pt-32">
       <div className="mx-auto max-w-3xl">
         <h2 className="max-w-[14ch] text-balance text-[clamp(1.75rem,2.75vw,2.375rem)] leading-[1.1]">
           {FREE_POSTGRES_PROBLEM_HEADLINE}
@@ -153,7 +153,7 @@ function FreeLimit() {
         </p>
 
         <div className="mt-12 rounded-[1.5rem] border border-black/[0.06] bg-white px-6 py-8 sm:px-10 sm:py-10">
-          <p className="max-w-[42ch] text-pretty text-lg leading-snug text-foreground">
+          <p className="max-w-[36ch] text-pretty text-lg leading-snug text-foreground">
             {FREE_POSTGRES_LIMIT.counts}
           </p>
           <div className="mt-8 grid grid-cols-1 gap-8 sm:grid-cols-2">
@@ -166,9 +166,6 @@ function FreeLimit() {
               label={FREE_POSTGRES_LIMIT.dayLabel}
             />
           </div>
-          <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
-            {FREE_POSTGRES_LIMIT.math}
-          </p>
           <p className="mt-8 max-w-[42ch] text-pretty text-lg leading-snug text-foreground">
             {FREE_POSTGRES_LIMIT.idle}
           </p>
@@ -177,34 +174,39 @@ function FreeLimit() {
             <p className="max-w-[58ch] text-pretty">{renderFaqAnswer(FREE_POSTGRES_LIMIT.paid)}</p>
           </div>
         </div>
+      </div>
+    </section>
+  );
+}
 
-        <p className="mt-14 max-w-[58ch] text-pretty leading-relaxed text-muted-foreground">
-          {FREE_POSTGRES_LIMIT_EXAMPLES_NOTE}
-        </p>
-        <ul className="mt-4 border-t border-black/[0.06]">
-          {FREE_POSTGRES_LIMIT_EXAMPLES.map((example) => (
-            <li
-              key={example.name}
-              className="grid gap-2 border-b border-black/[0.06] py-6 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-baseline sm:gap-10"
-            >
-              <div>
-                <h3 className="text-lg leading-snug">{example.name}</h3>
-                <p className="mt-1 max-w-[52ch] text-pretty text-sm leading-relaxed text-muted-foreground">
-                  {example.basis}
-                </p>
-              </div>
-              <p className="text-lg font-semibold tabular-nums text-foreground">{example.count}</p>
-            </li>
+// The section after the limit. Three rough days, in sentences, so the step
+// from a blog to a restaurant is readable without a chart.
+function FreeLimitCases() {
+  return (
+    <section
+      id="a-day"
+      className="scroll-mt-28 bg-white px-4 pt-20 pb-24 sm:px-8 sm:pt-24 sm:pb-32"
+    >
+      <div className="mx-auto max-w-3xl">
+        <h2 className="max-w-[14ch] text-balance text-[clamp(1.75rem,2.75vw,2.375rem)] leading-[1.1]">
+          {FREE_POSTGRES_CASES_HEADLINE}
+        </h2>
+        <div className="mt-8 flex max-w-[46ch] flex-col gap-5">
+          {FREE_POSTGRES_CASES.map((item) => (
+            <p key={item.name} className="text-pretty text-lg leading-snug text-foreground">
+              {item.name},{" "}
+              <span className="font-semibold tabular-nums text-foreground">{item.count}</span>{" "}
+              {item.tail}
+            </p>
           ))}
-        </ul>
+        </div>
       </div>
     </section>
   );
 }
 
 // Same sections as /postgres, with the free-plan contents directly under the
-// hero. The limit comes next, then the two cards. Composed here so the limit
-// section and the engineering callouts stay on this page only.
+// hero. The limit comes next, then three rough days, then the two cards.
 export function FreePostgresPage() {
   return (
     <>
@@ -233,6 +235,7 @@ export function FreePostgresPage() {
         leadLayout="wide"
       />
       <FreeLimit />
+      <FreeLimitCases />
       <ProductFeatures
         features={{
           headline: "",

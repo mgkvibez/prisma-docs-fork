@@ -301,46 +301,35 @@ export const FREE_POSTGRES_COPILOT = {
 export const FREE_POSTGRES_PROBLEM_HEADLINE = "How the free limit works";
 
 // The free-plan limit. The catch is the stop. The panel then says what a
-// query counts as, the monthly pace as a daily pace, and that idle is free.
-// 200,000 / 30 is 6,666.6, which the page rounds to about 6,600. The docs FAQ
+// query counts as, the monthly and daily pace, and that idle is free.
+// "about 6,600" is the page's round number for the daily pace. The docs FAQ
 // is the source for the stop, the 1st, the upgrade, and the one-time restore.
 // Nothing here says what happens at 2 GB of storage.
 export const FREE_POSTGRES_LIMIT = {
   catch:
     "Queries stop at 200,000 operations until the 1st of the next month, or until you upgrade.",
-  counts: "One query is one operation. A read, a write, or a join counts as one.",
+  counts: "One query is one operation: a simple read, a write, or a join.",
   monthFigure: "200,000",
   monthLabel: "operations a month",
   dayFigure: "about 6,600",
   dayLabel: "queries a day",
-  math: "200,000 divided by 30, then rounded.",
   idle: "Idle is free. A quiet database costs nothing, and the next query wakes it.",
   restore: "Once, you can restore access for 24 hours in the Console and export first.",
   paid: `On a paid plan this stop does not happen. Extra operations are billed, and you set a spend limit. Read the [docs FAQ on the free limit](${DOCS_FREE_LIMIT}).`,
 } as const;
 
-// Sketches a reader can compare with about 6,600 queries a day. Not measured,
-// and not a query plan. Each line is visits times a few queries.
-export const FREE_POSTGRES_LIMIT_EXAMPLES_NOTE =
-  "Approximate. Each figure is visits times a few queries, not a measured workload.";
+// The next section. Three rough days, stepped up. "about" marks each figure
+// as approximate. The restaurant is past about 6,600 a day, so it needs a
+// paid plan. Not a measured workload.
+export const FREE_POSTGRES_CASES_HEADLINE = "Roughly, in a day";
 
-export const FREE_POSTGRES_LIMIT_EXAMPLES = [
+export const FREE_POSTGRES_CASES = [
+  { name: "A personal blog", count: "about 40", tail: "a day." },
+  { name: "An online shop for a local bakery", count: "about 300", tail: "a day." },
   {
-    name: "A personal blog",
-    count: "about 40 a day",
-    basis: "One query lists the posts and one query loads the post, across about 20 visits.",
-  },
-  {
-    name: "An online shop for a local bakery",
-    count: "about 300 a day",
-    basis:
-      "The shop, one product, the basket, and checkout are about four queries, across about 75 visits.",
-  },
-  {
-    name: "A booking page for a hair salon",
-    count: "about 90 a day",
-    basis:
-      "Open times, a stylist, and the booking are about three queries, across about 30 visits.",
+    name: "A restaurant taking orders online",
+    count: "about 10,000",
+    tail: "a day. It needs a paid plan.",
   },
 ] as const;
 
