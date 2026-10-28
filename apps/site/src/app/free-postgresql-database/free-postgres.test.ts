@@ -19,6 +19,9 @@ import {
   FREE_POSTGRES_INCLUDED_CARDS,
   FREE_POSTGRES_INCLUDED_NOTES,
   FREE_POSTGRES_INCLUDED_ROWS,
+  FREE_POSTGRES_LIMIT,
+  FREE_POSTGRES_LIMIT_EXAMPLES,
+  FREE_POSTGRES_LIMIT_EXAMPLES_NOTE,
   FREE_POSTGRES_HERO_PRIMARY_CTA,
   FREE_POSTGRES_PATH,
   FREE_POSTGRES_PRIMARY_CTA,
@@ -168,6 +171,16 @@ test("user-visible content and FAQ schema have no em or en dashes", () => {
   for (const line of Object.values(FREE_POSTGRES_CODEX)) assert.ok(!DASHES.test(line));
   for (const line of Object.values(FREE_POSTGRES_CURSOR)) assert.ok(!DASHES.test(line));
   for (const line of Object.values(FREE_POSTGRES_COPILOT)) assert.ok(!DASHES.test(line));
+  for (const line of Object.values(FREE_POSTGRES_LIMIT)) assert.ok(!DASHES.test(line));
+  assert.ok(!DASHES.test(FREE_POSTGRES_LIMIT_EXAMPLES_NOTE));
+  for (const example of FREE_POSTGRES_LIMIT_EXAMPLES) {
+    assert.ok(!DASHES.test(example.name));
+    assert.ok(!DASHES.test(example.count));
+    assert.ok(!DASHES.test(example.basis));
+    assert.ok(!/\bapp\b/i.test(`${example.name} ${example.count} ${example.basis}`));
+  }
+  assert.ok(!/\bapp\b/i.test(FREE_POSTGRES_LIMIT_EXAMPLES_NOTE));
+  assert.ok(!/\bapp\b/i.test(Object.values(FREE_POSTGRES_LIMIT).join(" ")));
 });
 
 test("the hero window is a plain terminal plus light agent sessions", () => {
@@ -332,18 +345,35 @@ test("the hero window is a plain terminal plus light agent sessions", () => {
     ),
   );
   const limitHeading = markdown.indexOf(`## ${FREE_POSTGRES_PROBLEM_HEADLINE}`);
+  const blogExample = markdown.indexOf("### A personal blog");
   const buildCard = markdown.indexOf("**What developers build on it:**");
   assert.ok(
-    backupNote < limitHeading && limitHeading < buildCard,
-    "limit section sits between the includes panel and the two cards",
+    backupNote < limitHeading && limitHeading < blogExample && blogExample < buildCard,
+    "the limit, then the daily sketches, then the two cards",
   );
+  assert.ok(
+    markdown.includes(
+      "Queries stop at 200,000 operations until the 1st of the next month, or until you upgrade.",
+    ),
+  );
+  assert.ok(
+    markdown.includes("One query is one operation. A read, a write, or a join counts as one."),
+  );
+  assert.ok(markdown.includes("200,000 divided by 30, then rounded."));
+  assert.ok(
+    markdown.includes("Idle is free. A quiet database costs nothing, and the next query wakes it."),
+  );
+  assert.ok(markdown.includes("### An online shop for a local bakery"));
+  assert.ok(markdown.includes("about 40 a day"));
+  assert.ok(markdown.includes("about 300 a day"));
+  assert.ok(markdown.includes("about 90 a day"));
+  assert.ok(markdown.includes("Approximate. Each figure is visits times a few queries"));
   assert.ok(!markdown.includes("For evaluation only"));
   assert.ok(!markdown.includes("Whether upgrading a workspace keeps the same connection string"));
   assert.ok(!markdown.includes("embedding demo"));
   assert.ok(!markdown.includes("Starter, $10 a month"));
-  assert.ok(
-    markdown.includes("TO CONFIRM WITH ENGINEERING: What happens when a database reaches 2 GB"),
-  );
+  assert.ok(!markdown.includes("TO CONFIRM WITH ENGINEERING"));
+  assert.ok(!markdown.includes("What happens when a database reaches 2 GB"));
 
   const sections = readFileSync(new URL("./_sections.tsx", import.meta.url), "utf8");
   assert.match(sections, /one\s+query each/);

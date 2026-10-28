@@ -7,9 +7,8 @@
 //     accordion already does that with Radix's `forceMount`).
 //   - No em dashes or en dashes.
 //   - Do not invent what happens at 2 GB of storage, or whether an upgrade
-//     keeps the same connection string. The storage question stays marked
-//     "TO CONFIRM WITH ENGINEERING" in the limit section. The connection-string
-//     question is left off the page until engineering answers it.
+//     keeps the same connection string. Both questions stay off the page
+//     until engineering answers them.
 //
 // Numbers are taken from apps/site/src/lib/pricing-data.ts and
 // components/sections/pricing-spec-table.tsx. When the brief and those files
@@ -301,29 +300,49 @@ export const FREE_POSTGRES_COPILOT = {
 
 export const FREE_POSTGRES_PROBLEM_HEADLINE = "How the free limit works";
 
-// The free-plan limit, in the order the section shows it. Same facts as the
-// earlier paragraphs: what a query counts as, the monthly and daily pace,
-// idle, the hard stop, the one-time restore, and what paid plans do instead.
+// The free-plan limit. The catch is the stop. The panel then says what a
+// query counts as, the monthly pace as a daily pace, and that idle is free.
+// 200,000 / 30 is 6,666.6, which the page rounds to about 6,600. The docs FAQ
+// is the source for the stop, the 1st, the upgrade, and the one-time restore.
 // Nothing here says what happens at 2 GB of storage.
 export const FREE_POSTGRES_LIMIT = {
-  intro: "The catch is stated here so you can decide before you build on it.",
-  countsTitle: "What counts",
-  countsLead: "One query is one operation: a simple read, a write, or a join.",
+  catch:
+    "Queries stop at 200,000 operations until the 1st of the next month, or until you upgrade.",
+  counts: "One query is one operation. A read, a write, or a join counts as one.",
   monthFigure: "200,000",
   monthLabel: "operations a month",
   dayFigure: "about 6,600",
   dayLabel: "queries a day",
-  idleNotBilled: "Idle time is not billed.",
-  idleTitle: "Idle databases scale to zero",
-  idleBody:
-    "Idle databases scale to zero and cost nothing. The next query wakes them. You do not wake one by hand.",
-  capTitle: "Queries stop at the monthly limit",
-  capBody:
-    "The workspace's databases stop accepting queries until the 1st of the next month, or until you upgrade.",
-  restoreTitle: "A one-time 24 hour restore",
-  restoreBody: "A one-time 24 hour restore in the Console lets you export first.",
-  paid: `On paid plans this never happens: extra operations are billed, with a spend limit you set. Read the [docs FAQ on the free limit](${DOCS_FREE_LIMIT}).`,
+  math: "200,000 divided by 30, then rounded.",
+  idle: "Idle is free. A quiet database costs nothing, and the next query wakes it.",
+  restore: "Once, you can restore access for 24 hours in the Console and export first.",
+  paid: `On a paid plan this stop does not happen. Extra operations are billed, and you set a spend limit. Read the [docs FAQ on the free limit](${DOCS_FREE_LIMIT}).`,
 } as const;
+
+// Sketches a reader can compare with about 6,600 queries a day. Not measured,
+// and not a query plan. Each line is visits times a few queries.
+export const FREE_POSTGRES_LIMIT_EXAMPLES_NOTE =
+  "Approximate. Each figure is visits times a few queries, not a measured workload.";
+
+export const FREE_POSTGRES_LIMIT_EXAMPLES = [
+  {
+    name: "A personal blog",
+    count: "about 40 a day",
+    basis: "One query lists the posts and one query loads the post, across about 20 visits.",
+  },
+  {
+    name: "An online shop for a local bakery",
+    count: "about 300 a day",
+    basis:
+      "The shop, one product, the basket, and checkout are about four queries, across about 75 visits.",
+  },
+  {
+    name: "A booking page for a hair salon",
+    count: "about 90 a day",
+    basis:
+      "Open times, a stylist, and the booking are about three queries, across about 30 visits.",
+  },
+] as const;
 
 export const STORAGE_CONFIRM = "What happens when a database reaches 2 GB of storage.";
 export const CONNECTION_CONFIRM = "Whether upgrading a workspace keeps the same connection string.";
@@ -398,7 +417,8 @@ export const FREE_POSTGRES_INCLUDED_NOTES = [
 export const FREE_POSTGRES_FEATURE_ITEMS = [
   {
     name: "What developers build on it",
-    description: "Side projects, agent experiments, and small apps. Prototypes, tests, and coding agents too.",
+    description:
+      "Side projects, agent experiments, and small apps. Prototypes, tests, and coding agents too.",
     illustration: "runApps",
   },
   {

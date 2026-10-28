@@ -1,5 +1,3 @@
-import type { ReactNode } from "react";
-import { Texture } from "@/components/brand/texture";
 import { ProductCta } from "@/components/product/product-cta";
 import { ProductFeatures } from "@/components/product/product-features";
 import { ProductHero } from "@/components/product/product-hero";
@@ -37,12 +35,13 @@ import {
   FREE_POSTGRES_INCLUDED_NOTES,
   FREE_POSTGRES_INCLUDED_ROWS,
   FREE_POSTGRES_LIMIT,
+  FREE_POSTGRES_LIMIT_EXAMPLES,
+  FREE_POSTGRES_LIMIT_EXAMPLES_NOTE,
   FREE_POSTGRES_PLATFORM_BODY,
   FREE_POSTGRES_PRICING_CTA,
   FREE_POSTGRES_PRIMARY_CTA,
   FREE_POSTGRES_PROBLEM_HEADLINE,
   FREE_POSTGRES_SUBHEADLINE,
-  STORAGE_CONFIRM,
 } from "./_content";
 import { FreePostgresTerminal } from "./_terminal";
 
@@ -138,115 +137,68 @@ function LimitFigure({ figure, label }: { figure: string; label: string }) {
   );
 }
 
-// The free plan's limit, drawn as one instrument: what a query counts as, then
-// what idle and the cap actually do. Free-page only. ProductProblem stays the
-// centered narrative /postgres uses.
+// The free plan's limit, as one reading column. The catch is the sentence
+// under the heading. The panel holds the four facts. The three daily sketches
+// sit under the panel. Free-page only. ProductProblem stays the centered
+// narrative /postgres uses.
 function FreeLimit() {
   return (
     <section id="limits" className="scroll-mt-28 bg-white px-4 py-24 sm:px-8 sm:py-32">
-      <div className="mx-auto max-w-site">
-        <h2 className="max-w-[12ch] text-balance text-[clamp(1.75rem,2.75vw,2.375rem)] leading-[1.1]">
+      <div className="mx-auto max-w-3xl">
+        <h2 className="max-w-[14ch] text-balance text-[clamp(1.75rem,2.75vw,2.375rem)] leading-[1.1]">
           {FREE_POSTGRES_PROBLEM_HEADLINE}
         </h2>
-        <p className="mt-5 max-w-[62ch] text-pretty text-lg leading-relaxed text-muted-foreground">
-          {FREE_POSTGRES_LIMIT.intro}
+        <p className="mt-5 max-w-[34ch] text-pretty text-xl leading-snug text-foreground sm:text-2xl">
+          {FREE_POSTGRES_LIMIT.catch}
         </p>
 
-        <div className="relative mt-16 overflow-hidden rounded-[1.5rem] border border-black/[0.06] bg-white">
-          <Texture opacity={0.05} blend="multiply" />
-          <div className="relative grid lg:grid-cols-[minmax(0,0.86fr)_minmax(0,1.14fr)]">
-            <div className="border-b border-black/[0.06] p-6 sm:p-10 lg:border-b-0 lg:border-r">
-              <h3 className="text-xl">{FREE_POSTGRES_LIMIT.countsTitle}</h3>
-              <p className="mt-3 max-w-[36ch] text-pretty text-lg leading-snug text-foreground">
-                {FREE_POSTGRES_LIMIT.countsLead}
-              </p>
-              <div className="mt-10 grid grid-cols-1 gap-8 sm:grid-cols-2">
-                <LimitFigure
-                  figure={FREE_POSTGRES_LIMIT.monthFigure}
-                  label={FREE_POSTGRES_LIMIT.monthLabel}
-                />
-                <LimitFigure
-                  figure={FREE_POSTGRES_LIMIT.dayFigure}
-                  label={FREE_POSTGRES_LIMIT.dayLabel}
-                />
-              </div>
-              <p className="mt-8 text-sm font-medium text-foreground">
-                {FREE_POSTGRES_LIMIT.idleNotBilled}
-              </p>
-            </div>
-
-            <div className="flex flex-col">
-              <div className="p-6 sm:p-10">
-                <div className="flex items-start gap-3">
-                  <span
-                    aria-hidden
-                    className="mt-2 size-2 shrink-0 rounded-full bg-prism-cyan-500"
-                  />
-                  <div>
-                    <h3 className="text-xl leading-snug">{FREE_POSTGRES_LIMIT.idleTitle}</h3>
-                    <p className="mt-3 max-w-[52ch] text-pretty leading-relaxed text-muted-foreground">
-                      {FREE_POSTGRES_LIMIT.idleBody}
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              <div className="bg-prism-red-500/[0.05] p-6 sm:p-10">
-                <div className="flex items-start gap-3">
-                  <span
-                    aria-hidden
-                    className="mt-2 size-2 shrink-0 rounded-full bg-prism-red-500"
-                  />
-                  <div>
-                    <h3 className="text-xl leading-snug">{FREE_POSTGRES_LIMIT.capTitle}</h3>
-                    <p className="mt-3 max-w-[52ch] text-pretty leading-relaxed text-foreground">
-                      {FREE_POSTGRES_LIMIT.capBody}
-                    </p>
-                  </div>
-                </div>
-                <div className="mt-8 border-t border-prism-red-500/20 pt-8">
-                  <div className="flex items-start gap-3 sm:pl-5">
-                    <span
-                      aria-hidden
-                      className="mt-2 size-2 shrink-0 rounded-full bg-prism-yellow-400"
-                    />
-                    <div>
-                      <h3 className="text-lg leading-snug">{FREE_POSTGRES_LIMIT.restoreTitle}</h3>
-                      <p className="mt-2 max-w-[48ch] text-pretty leading-relaxed text-muted-foreground">
-                        {FREE_POSTGRES_LIMIT.restoreBody}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <p className="relative border-t border-black/[0.06] px-6 py-6 text-pretty text-sm leading-relaxed text-muted-foreground sm:px-10">
-            {renderFaqAnswer(FREE_POSTGRES_LIMIT.paid)}
+        <div className="mt-12 rounded-[1.5rem] border border-black/[0.06] bg-white px-6 py-8 sm:px-10 sm:py-10">
+          <p className="max-w-[42ch] text-pretty text-lg leading-snug text-foreground">
+            {FREE_POSTGRES_LIMIT.counts}
           </p>
+          <div className="mt-8 grid grid-cols-1 gap-8 sm:grid-cols-2">
+            <LimitFigure
+              figure={FREE_POSTGRES_LIMIT.monthFigure}
+              label={FREE_POSTGRES_LIMIT.monthLabel}
+            />
+            <LimitFigure
+              figure={FREE_POSTGRES_LIMIT.dayFigure}
+              label={FREE_POSTGRES_LIMIT.dayLabel}
+            />
+          </div>
+          <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
+            {FREE_POSTGRES_LIMIT.math}
+          </p>
+          <p className="mt-8 max-w-[42ch] text-pretty text-lg leading-snug text-foreground">
+            {FREE_POSTGRES_LIMIT.idle}
+          </p>
+          <div className="mt-8 space-y-3 border-t border-black/[0.06] pt-6 text-sm leading-relaxed text-muted-foreground">
+            <p className="max-w-[58ch] text-pretty">{FREE_POSTGRES_LIMIT.restore}</p>
+            <p className="max-w-[58ch] text-pretty">{renderFaqAnswer(FREE_POSTGRES_LIMIT.paid)}</p>
+          </div>
         </div>
 
-        <div className="max-w-3xl">
-          <EngineeringConfirm>{STORAGE_CONFIRM}</EngineeringConfirm>
-        </div>
+        <p className="mt-14 max-w-[58ch] text-pretty leading-relaxed text-muted-foreground">
+          {FREE_POSTGRES_LIMIT_EXAMPLES_NOTE}
+        </p>
+        <ul className="mt-4 border-t border-black/[0.06]">
+          {FREE_POSTGRES_LIMIT_EXAMPLES.map((example) => (
+            <li
+              key={example.name}
+              className="grid gap-2 border-b border-black/[0.06] py-6 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-baseline sm:gap-10"
+            >
+              <div>
+                <h3 className="text-lg leading-snug">{example.name}</h3>
+                <p className="mt-1 max-w-[52ch] text-pretty text-sm leading-relaxed text-muted-foreground">
+                  {example.basis}
+                </p>
+              </div>
+              <p className="text-lg font-semibold tabular-nums text-foreground">{example.count}</p>
+            </li>
+          ))}
+        </ul>
       </div>
     </section>
-  );
-}
-
-/** Temporary callout. Delete this once engineering answers the two open facts. */
-export function EngineeringConfirm({ children }: { children: ReactNode }) {
-  return (
-    <p
-      className="mt-4 rounded-md border border-prism-yellow-400/70 bg-prism-yellow-50 px-3 py-2 text-[0.8125rem] leading-relaxed text-foreground"
-      data-engineering-confirm=""
-    >
-      <span className="font-semibold uppercase tracking-[0.04em] text-prism-yellow-800">
-        TO CONFIRM WITH ENGINEERING
-      </span>
-      <span className="mt-0.5 block text-foreground/80">{children}</span>
-    </p>
   );
 }
 

@@ -25,6 +25,8 @@ import {
   FREE_POSTGRES_INCLUDED_NOTES,
   FREE_POSTGRES_INCLUDED_ROWS,
   FREE_POSTGRES_LIMIT,
+  FREE_POSTGRES_LIMIT_EXAMPLES,
+  FREE_POSTGRES_LIMIT_EXAMPLES_NOTE,
   FREE_POSTGRES_MARKDOWN_SUBHEADLINE,
   FREE_POSTGRES_PLATFORM_BODY,
   FREE_POSTGRES_PRICING_CTA,
@@ -32,7 +34,6 @@ import {
   FREE_POSTGRES_PROBLEM_HEADLINE,
   CREATE_DB_COMMAND,
   FREE_POSTGRES_TERMINAL_TABS,
-  STORAGE_CONFIRM,
 } from "@/app/free-postgresql-database/_content";
 import { bulletList, ctaList, heading, joinBlocks, paragraphs } from "./blocks";
 import { COMPARE_PRISMA_HEADING } from "./compare-links";
@@ -119,9 +120,7 @@ export function renderFreePostgresqlDatabaseMarkdown(): string {
     ].join("\n"),
 
     heading(2, FREE_POSTGRES_FEATURES_HEADLINE),
-    bulletList(
-      FREE_POSTGRES_INCLUDED_CARDS.map((card) => `**${card.title}.** ${card.detail}`),
-    ),
+    bulletList(FREE_POSTGRES_INCLUDED_CARDS.map((card) => `**${card.title}.** ${card.detail}`)),
     [
       "| Feature | Included |",
       "| --- | --- |",
@@ -130,22 +129,22 @@ export function renderFreePostgresqlDatabaseMarkdown(): string {
     FREE_POSTGRES_INCLUDED_NOTES.map((note) => `${note.n}. ${note.text}`).join("\n"),
 
     heading(2, FREE_POSTGRES_PROBLEM_HEADLINE),
-    paragraphs(FREE_POSTGRES_LIMIT.intro),
-    heading(3, FREE_POSTGRES_LIMIT.countsTitle),
-    paragraphs(FREE_POSTGRES_LIMIT.countsLead),
+    paragraphs(FREE_POSTGRES_LIMIT.catch),
+    paragraphs(FREE_POSTGRES_LIMIT.counts),
     bulletList([
       `${FREE_POSTGRES_LIMIT.monthFigure} ${FREE_POSTGRES_LIMIT.monthLabel}`,
       `${FREE_POSTGRES_LIMIT.dayFigure} ${FREE_POSTGRES_LIMIT.dayLabel}`,
     ]),
-    paragraphs(FREE_POSTGRES_LIMIT.idleNotBilled),
-    heading(3, FREE_POSTGRES_LIMIT.idleTitle),
-    paragraphs(FREE_POSTGRES_LIMIT.idleBody),
-    heading(3, FREE_POSTGRES_LIMIT.capTitle),
-    paragraphs(FREE_POSTGRES_LIMIT.capBody),
-    heading(3, FREE_POSTGRES_LIMIT.restoreTitle),
-    paragraphs(FREE_POSTGRES_LIMIT.restoreBody),
+    paragraphs(FREE_POSTGRES_LIMIT.math),
+    paragraphs(FREE_POSTGRES_LIMIT.idle),
+    paragraphs(FREE_POSTGRES_LIMIT.restore),
     paragraphs(FREE_POSTGRES_LIMIT.paid),
-    paragraphs(`TO CONFIRM WITH ENGINEERING: ${STORAGE_CONFIRM}`),
+    paragraphs(FREE_POSTGRES_LIMIT_EXAMPLES_NOTE),
+    ...FREE_POSTGRES_LIMIT_EXAMPLES.flatMap((example) => [
+      heading(3, example.name),
+      paragraphs(example.count),
+      paragraphs(example.basis),
+    ]),
     bulletList(FREE_POSTGRES_FEATURE_ITEMS.map((item) => `**${item.name}:** ${item.description}`)),
 
     heading(2, PRODUCT_PLATFORM_HEADING),
