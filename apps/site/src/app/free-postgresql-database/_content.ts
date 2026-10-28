@@ -322,34 +322,38 @@ export const FREE_POSTGRES_LIMIT = {
   paid: `On paid plans this never happens: extra operations are billed, with a spend limit you set. Read the [docs FAQ on the free limit](${DOCS_FREE_LIMIT}).`,
 } as const;
 
-// Three setups inside the limit panel. Each count is approximate: a visit
-// times a few queries on this database. Cal.com bookings and Stripe payments
-// are not operations here. All three sit under about 6,600 a day, so they
-// stay on Free.
+// Three setups under the limit panel. Counts are approximate. The blog is the
+// lightest. The feedback board is a small SaaS that still fits Free. The team
+// chat is a common product type, not a named Prisma customer: about 200 people
+// checking in through the day is past 200,000 operations a month, and Starter
+// is the $10 plan that includes a million.
 export const FREE_POSTGRES_CASES = [
   {
     name: "A personal blog",
     body: "One person writes a few posts a week. A visit loads the list of posts, then the post.",
     count: "about 40 a day",
     plan: "Stays on Free",
-    image: "/free-postgresql-database/personal-blog.jpg",
-    imageAlt: "A writing desk with a laptop, an open notebook, and a cup of coffee",
+    href: "",
+    image: "/free-postgresql-database/personal-blog.svg",
+    imageAlt: "A simple drawing of an open notebook",
   },
   {
-    name: "An online shop for a local bakery",
-    body: "A neighborhood bakery sells bread and cakes from a short catalog. A visit opens the shop, one product, the basket, and checkout.",
-    count: "about 300 a day",
+    name: "A feedback board",
+    body: "One product collects ideas. A visit reads the list, opens one idea, and sometimes leaves a vote.",
+    count: "about 400 a day",
     plan: "Stays on Free",
-    image: "/free-postgresql-database/bakery-shop.jpg",
-    imageAlt: "A bakery counter with loaves of bread and cakes in a glass case",
+    href: "",
+    image: "/free-postgresql-database/feedback-board.svg",
+    imageAlt: "A simple drawing of a board with two cards",
   },
   {
-    name: "A small local hair salon",
-    body: "A marketing page lists the stylists and the cuts. Bookings go through Cal.com and payments go through Stripe, so that work stays off this database.",
-    count: "about 100 a day",
-    plan: "Stays on Free",
-    image: "/free-postgresql-database/hair-salon.jpg",
-    imageAlt: "A hair salon chair, a mirror, and scissors on the counter",
+    name: "A team chat",
+    body: "About 200 people keep a channel open through the workday. Each check loads the channel list and the latest messages.",
+    count: "about 20,000 a day",
+    plan: "Needs Starter at $10 a month",
+    href: "/pricing",
+    image: "/free-postgresql-database/team-chat.svg",
+    imageAlt: "A simple drawing of a chat window",
   },
 ] as const;
 

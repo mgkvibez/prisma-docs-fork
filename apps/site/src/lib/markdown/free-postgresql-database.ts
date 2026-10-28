@@ -145,7 +145,9 @@ export function renderFreePostgresqlDatabaseMarkdown(): string {
     ...FREE_POSTGRES_CASES.flatMap((item) => [
       heading(3, item.name),
       paragraphs(item.body),
-      paragraphs(`${item.count}. ${item.plan}.`),
+      paragraphs(
+        item.href ? `${item.count}. [${item.plan}](${item.href}).` : `${item.count}. ${item.plan}.`,
+      ),
     ]),
     bulletList(FREE_POSTGRES_FEATURE_ITEMS.map((item) => `**${item.name}:** ${item.description}`)),
 

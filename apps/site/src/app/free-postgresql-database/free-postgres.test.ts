@@ -176,7 +176,7 @@ test("user-visible content and FAQ schema have no em or en dashes", () => {
     assert.ok(!DASHES.test(text));
     assert.ok(!/\bapp\b/i.test(text));
     assert.ok(item.count.startsWith("about "), `${item.name} is marked approximate`);
-    assert.ok(item.plan === "Stays on Free" || item.plan === "Needs a paid plan");
+    assert.ok(item.plan === "Stays on Free" || item.plan.startsWith("Needs "));
   }
   assert.ok(!/\bapp\b/i.test(Object.values(FREE_POSTGRES_LIMIT).join(" ")));
 });
@@ -369,11 +369,12 @@ test("the hero window is a plain terminal plus light agent sessions", () => {
   assert.ok(markdown.includes("### A personal blog"));
   assert.ok(markdown.includes("A visit loads the list of posts, then the post."));
   assert.ok(markdown.includes("about 40 a day. Stays on Free."));
-  assert.ok(markdown.includes("### An online shop for a local bakery"));
-  assert.ok(markdown.includes("about 300 a day. Stays on Free."));
-  assert.ok(markdown.includes("### A small local hair salon"));
-  assert.ok(markdown.includes("Bookings go through Cal.com and payments go through Stripe"));
-  assert.ok(markdown.includes("about 100 a day. Stays on Free."));
+  assert.ok(markdown.includes("### A feedback board"));
+  assert.ok(markdown.includes("about 400 a day. Stays on Free."));
+  assert.ok(markdown.includes("### A team chat"));
+  assert.ok(markdown.includes("[Needs Starter at $10 a month](/pricing)"));
+  assert.ok(markdown.includes("about 20,000 a day."));
+  assert.ok(!markdown.includes("hair salon"));
   assert.ok(!markdown.includes("Restaurant orders"));
   assert.ok(!markdown.includes("visits times a few queries"));
   assert.ok(!markdown.includes("For evaluation only"));

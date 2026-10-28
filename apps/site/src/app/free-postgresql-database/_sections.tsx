@@ -1,4 +1,3 @@
-import Image from "next/image";
 import { Texture } from "@/components/brand/texture";
 import { ProductCta } from "@/components/product/product-cta";
 import { ProductFeatures } from "@/components/product/product-features";
@@ -234,28 +233,37 @@ function FreeLimitCases() {
   return (
     <section className="bg-white px-4 pb-24 sm:px-8 sm:pb-32">
       <ul className="mx-auto grid max-w-site grid-cols-1 gap-3 lg:grid-cols-3">
-        {FREE_POSTGRES_CASES.map((item) => (
-          <li
-            key={item.name}
-            className="overflow-hidden rounded-xl border border-black/[0.06] bg-white"
-          >
-            <Image
-              src={item.image}
-              alt={item.imageAlt}
-              width={800}
-              height={600}
-              className="h-24 w-full object-cover grayscale"
-            />
-            <div className="px-4 py-3">
-              <h3 className="text-base leading-snug">{item.name}</h3>
-              <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">{item.body}</p>
-              <p className="mt-3 text-sm font-semibold tabular-nums text-foreground">
-                {item.count}
-              </p>
-              <p className="mt-0.5 text-sm text-foreground">{item.plan}</p>
-            </div>
-          </li>
-        ))}
+        {FREE_POSTGRES_CASES.map((item) => {
+          const card = (
+            <>
+              <img src={item.image} alt={item.imageAlt} className="h-24 w-full object-cover" />
+              <div className="px-4 py-3">
+                <h3 className="text-base leading-snug">{item.name}</h3>
+                <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">{item.body}</p>
+                <p className="mt-3 text-sm font-semibold tabular-nums text-foreground">
+                  {item.count}
+                </p>
+                <p className="mt-0.5 text-sm text-foreground">{item.plan}</p>
+              </div>
+            </>
+          );
+          return (
+            <li key={item.name}>
+              {item.href ? (
+                <a
+                  href={item.href}
+                  className="block overflow-hidden rounded-xl border border-black/[0.06] bg-white text-inherit no-underline outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50"
+                >
+                  {card}
+                </a>
+              ) : (
+                <div className="overflow-hidden rounded-xl border border-black/[0.06] bg-white">
+                  {card}
+                </div>
+              )}
+            </li>
+          );
+        })}
       </ul>
     </section>
   );
